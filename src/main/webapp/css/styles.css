@@ -1,0 +1,280 @@
+/*All*/
+.navbar {
+	border-radius: 0;
+	background-color: #000;
+	margin-bottom: 0;
+	padding: 0;
+}
+
+.navbar-brand {
+	height: 60px;
+}
+
+#content {
+	padding-top: 60px;
+}
+/*About Page*/
+/*main image*/
+.BR-mainbanner {
+	background-image: url(../images/BR-mainbanner.jpg);
+	border-radius: 0;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100%;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	padding-bottom: 36.3%;
+}
+
+.jumbotron p.BR-mainbanner-text {
+	font-family: "Helvetica";
+	color: #52b5e0;
+	margin-top: 20px;
+}
+/*jumbotron content -text and search-*/
+.stylish-input-group .input-group-addon {
+	background: white !important;
+	border-radius: 0 50px 50px 0;
+}
+.stylish-input-group .form-control {
+	border-right: 0;
+	box-shadow: 0 0 0;
+	border-color: #ccc;
+	border-radius: 50px 0 0 50px;
+	font-family: "Helvetica";
+	font-size: 21px;
+	font-style: italic;
+}
+.stylish-input-group button {
+	border: 0;
+	background: transparent;
+}
+/*Main Page Tabs*/
+.BR-mainTabs {
+	background-color: #eee;
+	border: none;
+	border-radius: 0;
+}
+.BR-mainTabs .panel-body ul.nav-tabs {
+	border: none;
+}
+.BR-mainTabs .panel-body ul.nav-tabs li {
+	border-radius: 2px;
+	text-align: center;
+}
+.BR-mainTabs .panel-body ul.nav-tabs li a {
+	line-height: 1;
+	background-color: #f6f6f6;
+	border: 1px solid #ddd;
+	border-bottom: none;
+	opacity: 0.5;
+	background-position: center;
+	color: #52b5e0;
+}
+.BR-mainTabs .panel-body ul.nav-tabs li a b {
+	color: #000;
+}
+.BR-mainTabs .panel-body ul.nav-tabs li.active a {
+	opacity: 1;
+	background-color: #fff;
+}
+.BR-mainTabs .panel-body .tab-content .active {
+	background-color: #fff;
+	height: auto;
+	background-repeat: no-repeat;
+	border: 1px solid #ddd;
+	overflow: hidden;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-bottom: 30px;
+}
+
+.BR-mainTabs .panel-body .tab-content .active .title {
+	color: #52b5e0;
+	margin-bottom: 0;
+}
+
+.BR-mainTabs .panel-body .tab-content .active .title b {
+	color: #000;
+}
+
+.BR-mainTabs .panel-body .tab-content .active .title img {
+	vertical-align: top;
+}
+
+.BR-mainTabs .panel-body .tab-content .active .subtitle {
+	color: #717171;
+	font-family: Helvetica;
+}
+
+.BR-mainTabs .panel-body .tab-content .active .listWrapper {
+	margin-top: 10px;
+}
+
+.vcenter {
+	display: inline-block;
+	vertical-align: middle;
+	float: none;
+	font-family: Helvetica;
+}
+
+.BR-mainTabs .panel-body .tab-content .active .numList {
+	padding-left: 60px;
+	margin-right: 15px
+}
+
+.BR-mainTabs .panel-body .tab-content .active .itemList {
+	margin-left: 0;
+	font-size: 15px;
+}
+
+.BR-mainTabs .panel-body .tab-content .active .listWrapper img {
+	width: 90%;
+}
+
+.bodyTabPane {
+	padding-top: 26px;
+	padding-left: 3px;
+	font-family: Helvetica;
+	font-size: 14.5px;
+	line-height: 20px;
+}
+
+.bodyTabPane p b {
+	color: #52b5e0;
+}
+
+.bodyTabPane p.linkTitle {
+	margin-top: 32px;
+	margin-bottom: 0px;
+}
+
+.bodyTabPane p a {
+	text-decoration: underline;
+}
+
+.popularReviews {
+	height: auto;
+	overflow: hidden; background-color : #52b5e0;
+	margin: 0;
+	margin-right: 15px;
+	margin-left: 15px;
+	padding: 1px 30px 30px 30px;
+	background-color: #52b5e0;
+}
+
+.popularReviewsItem {
+	background-color: #fff;
+	margin-bottom: 20px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: auto 230px; 
+}
+
+.popularReviews .title {
+	color: #fff;
+	margin-bottom: 0;
+	padding-left: 30px;
+}
+.buttonsRow {
+	font-family: Helvetica;
+}
+.view {
+	font-size: 17px;
+	color: gray;
+}
+.titleBtn {
+	font-size: 21px;
+	font-weight: bold;
+	color: #52b5e0;
+}
+.row-height {
+	display: table;
+	height: 230px;
+	width: 100%;
+}
+
+.col-height {
+	display: table-cell;
+	float: none;
+	height: 100%;
+}
+
+.col-bottom {
+	vertical-align: bottom;
+}
+
+.gifts {
+	background-image: url(../images/products-gifts-thumb.png);
+}
+
+.shoes {
+	background-image: url(../images/products-shoes-thumb.png);
+}
+
+.applience {
+	background-image: url(../images/products-applience-thumb.png);
+}
+
+.babies {
+	background-image: url(../images/products-stroller-thumb.png);
+}
+.footer {
+	height: 60px;
+	line-height: 60px;
+}
+.footer li a {
+	line-height: 20px;
+	white-space: nowrap;
+}
+@media ( max-width : 768px) { /*Mobile xs*/
+	.BR-mainbanner {
+		padding-bottom: 0;
+		height: auto;
+		overflow: hidden;
+	}
+	.BR-mainTabs .panel-body ul.nav-tabs li {
+		width: 100%;
+	}
+	.BR-mainTabs .panel-body .tab-content .active .numList {
+		padding-left: 8%;
+		margin-right: 5px
+	}
+}
+
+@media ( min-width : 768px ) { /*Tablet sm*/
+	.BR-mainbanner {
+		padding-bottom: 36%;
+		height: 0;
+		overflow: hidden;
+	}
+}
+
+@media ( min-width : 990px ) { /*Screen md*/
+	.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus,
+		.navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>li>a
+		{
+		font-size: 15px;
+		opacity: .85;
+		font-family: Helvetica;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+	.navbar-nav li a:after {
+		content: "|";
+		padding-left: 20px;
+	}
+	.navbar-nav li:last-child a:after {
+		content: '';
+	}
+	ul.navbar-nav li:before {
+		content: "";
+		display: inline-block;
+		vertical-align: bottom;
+		height: 40px;
+	}
+}
+
+@media ( min-width : 1200px) { /*Screen lg*/
+}
