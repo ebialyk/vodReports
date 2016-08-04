@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.min.js"></script>
+<script src="js/script.js"></script>
+
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css">
+<link href="css/T1_style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<body ng-app="TenBestApp">
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand " href="#">Best baby strollers <b>|
+						2016</b></a>
+			</div>
+			<div class="navbar-header pull-right">
+				<a class="navbar-brand " href="#"><img
+					src="images/BR-LOGO-top.png"></img></a>
+			</div>
+
+		</div>
+	</nav>
+	<div class="container" ng-controller="template1Controller">
+		<div class="row">
+			<div class="">
+				<div class="col-md-1 descriptions">
+					<div class="row1">Brand/ product</div>
+
+					<div class="row2">Weight</div>
+
+					<div class="row3">
+						Size
+						<p class="subtitle">(H/W/D/cm)</p>
+					</div>
+
+					<div class="row4">The Good</div>
+
+					<div class="row5">The Bad</div>
+
+					<div class="row6">Best deal</div>
+				</div>
+				<div ng-repeat="item in items" class="col-md-2 columnWrapper" ng-class="{'bestValue':item.bestValue, 'editorPick':item.editorPick}">
+					<div class="">
+						<div class="itemCell row1 text-center">
+							<div class="title">{{item.title}}</div>
+							<div class="subtitle">{{item.subtitle}}</div>
+							<div class="col-md-12">
+								<img src={{item.img}}>
+							</div>
+
+							<a class="link" href="{{item.link}}">See it now on
+								{{item.best_deal.name}}</a>
+						</div>
+
+						<div class="itemCell row2 text-center">
+							<p class="title">{{item.weight}}</p>
+							<p class="subtitle">{{item.weight_unit}}</p>
+						</div>
+
+						<div class="itemCell row3 text-center">
+							<p class="title">{{item.size}}</p>
+							<p class="subtitle">{{item.size_unit}}</p>
+						</div>
+
+						<div class="itemCell row4">
+							<ul>
+								<li ng-repeat="good in item.the_good"><span>{{good}}</span></li>
+							</ul>
+						</div>
+
+						<div class="itemCell row5">
+							<ul>
+								<li ng-repeat="bad in item.the_bad"><span>{{bad}}</span></li>
+							</ul>
+						</div>
+
+						<div class="itemCell row6">
+							<img src={{item.best_deal.img}} class="col-md-6"> <span
+								class="col-md-6 bestPrice">{{item.best_deal.price}}</span> <a
+								href="item.best_deal.link" class="bestDealBtn col-md-12 text-center"><img
+								src="images/seeitnow-but.png"></a>
+							<div>
+								<div ng-repeat="deal in item.deals" class="col-md-12">
+									<a href={{deal.link}} class="deal_name col-md-6">{{deal.name}}</a> 
+									<span class="deal_price col-md-6 pull-right text-right">{{deal.price}}</span>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+.navbar {
+	border-radius: 0;
+	background-color: #000;
+	margin-bottom: 0;
+	padding: 0;
+}
+.navbar-brand {
+	height: 60px;
+}
+
+.columnWrapper:hover {
+}
+
+.columnWrapper:hover .itemCell {
+	border-top-color: #52b5e0;
+	border-left-color: #52b5e0;
+	border-right-color: #52b5e0;
+}
+.columnWrapper:hover  .itemCell:last-child {
+	border-bottom-color: #52b5e0;
+}
+.columnWrapper {
+	padding-left: 0;
+	padding-right: 0;
+	margin-right: 15px;
+}
+
+.itemCell {
+	padding: 10px 5px 20px 5px;
+	border: 1px solid #d8d7d9;
+}
+
+.row1 {
+	height: 222px;
+	border-bottom: 3px solid #4c4c4c;
+}
+
+.row1 .title {
+	font-size: 15px;
+	font-weight: bold;
+	color: #4c4c4c;
+}
+
+.row1 .subtitle {
+	font-size: 13px;
+	color: #4c4c4c;
+}
+
+.row1 a {
+	font-size: 13px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.row1 img {
+	width: 110px;
+	height: 125px;;
+}
+
+.row2, .row3 {
+	height: 50px;
+	border-top: none;
+}
+
+.row2 .title, .row3 .title {
+	font-size: 17px;
+	font-weight: bold;
+	color: #4c4c4c;
+	margin: 0;
+	line-height: 1;
+}
+
+.row2 .subtitle, .row3 .subtitle {
+	font-size: 11px;
+	color: #4c4c4c;
+}
+
+.row4, .row5 {
+	height: 115px;
+	border-top: none;
+}
+
+.row4 li, .row5 li {
+	font-size: 22px;
+	line-height: 15px;
+	margin-bottom: 0;
+}
+
+.row4 li span, .row5 li span {
+	font-size: 13px;
+}
+
+.row6 {
+	height: 180px;
+	border-top: none;
+	padding-top: 20px;
+}
+
+.row6 span, .row6 a {
+	padding: 0;
+}
+
+.row6 a {
+	color: #52b5e0;
+	font-size: 13px;
+}
+
+.row6 span {
+	font-weight: bold;
+}
+
+.row6 a.deal_name:after {
+	content: ".....................";
+}
+
+.bestPrice {
+	font-size: 17px;
+	color: #000;
+}
+
+.descriptions {
+	color: #52b5e0;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 0;
+}
+.descriptions .row1{
+	height: 221px;
+}
+.descriptions>div {
+	border: 1px solid #d8d7d9;
+	border-bottom:none;
+	text-align: center;
+	padding-top: 10px;
+	line-height: 1;
+}
+.descriptions>div:last-child {
+	border: 1px solid #d8d7d9;
+}
+.descriptions .subtitle {
+	font-size: 11px;
+	color: #52b5e0;
+}
+
+.editorPick {
+	
+}
+
+.bestValue {
+	
+}

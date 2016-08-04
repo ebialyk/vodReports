@@ -15,28 +15,29 @@
 }
 /*About Page*/
 /*main image*/
-.BR-mainbanner {
-	background-image: url(../images/BR-mainbanner.jpg);
-	border-radius: 0;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 100%;
-	height: 0;
-	margin: 0;
+#mainCarousel .searchSector {
+	position: absolute;
+	top: 32%;
+	right: 8%;
 	padding: 0;
-	padding-bottom: 36.3%;
 }
 
-.jumbotron p.BR-mainbanner-text {
+#mainCarousel .BR-mainbanner-text {
 	font-family: "Helvetica";
 	color: #52b5e0;
 	margin-top: 20px;
+	font-size: 23px;
 }
-/*jumbotron content -text and search-*/
+
+.carousel-inner img {
+	width: 100%;
+}
+
 .stylish-input-group .input-group-addon {
 	background: white !important;
 	border-radius: 0 50px 50px 0;
 }
+
 .stylish-input-group .form-control {
 	border-right: 0;
 	box-shadow: 0 0 0;
@@ -46,6 +47,7 @@
 	font-size: 21px;
 	font-style: italic;
 }
+
 .stylish-input-group button {
 	border: 0;
 	background: transparent;
@@ -56,13 +58,16 @@
 	border: none;
 	border-radius: 0;
 }
+
 .BR-mainTabs .panel-body ul.nav-tabs {
 	border: none;
 }
+
 .BR-mainTabs .panel-body ul.nav-tabs li {
 	border-radius: 2px;
 	text-align: center;
 }
+
 .BR-mainTabs .panel-body ul.nav-tabs li a {
 	line-height: 1;
 	background-color: #f6f6f6;
@@ -72,13 +77,17 @@
 	background-position: center;
 	color: #52b5e0;
 }
+
 .BR-mainTabs .panel-body ul.nav-tabs li a b {
 	color: #000;
 }
+
 .BR-mainTabs .panel-body ul.nav-tabs li.active a {
 	opacity: 1;
 	background-color: #fff;
+	width: 100%;
 }
+
 .BR-mainTabs .panel-body .tab-content .active {
 	background-color: #fff;
 	height: auto;
@@ -156,7 +165,8 @@
 
 .popularReviews {
 	height: auto;
-	overflow: hidden; background-color : #52b5e0;
+	overflow: hidden;
+	background-color: #52b5e0;
 	margin: 0;
 	margin-right: 15px;
 	margin-left: 15px;
@@ -169,7 +179,7 @@
 	margin-bottom: 20px;
 	background-repeat: no-repeat;
 	background-position: center;
-	background-size: auto 230px; 
+	background-size: auto 230px;
 }
 
 .popularReviews .title {
@@ -177,18 +187,22 @@
 	margin-bottom: 0;
 	padding-left: 30px;
 }
+
 .buttonsRow {
 	font-family: Helvetica;
 }
+
 .view {
 	font-size: 17px;
 	color: gray;
 }
+
 .titleBtn {
 	font-size: 21px;
 	font-weight: bold;
 	color: #52b5e0;
 }
+
 .row-height {
 	display: table;
 	height: 230px;
@@ -220,14 +234,17 @@
 .babies {
 	background-image: url(../images/products-stroller-thumb.png);
 }
+
 .footer {
 	height: 60px;
 	line-height: 60px;
 }
+
 .footer li a {
 	line-height: 20px;
 	white-space: nowrap;
 }
+
 @media ( max-width : 768px) { /*Mobile xs*/
 	.BR-mainbanner {
 		padding-bottom: 0;
@@ -235,11 +252,27 @@
 		overflow: hidden;
 	}
 	.BR-mainTabs .panel-body ul.nav-tabs li {
-		width: 100%;
+		width: 33%;
+	}
+	.BR-mainTabs .panel-body ul.nav-tabs li.active {
+		width: 34%;
 	}
 	.BR-mainTabs .panel-body .tab-content .active .numList {
 		padding-left: 8%;
 		margin-right: 5px
+	}
+	#mainCarousel .searchSector {
+		position: relative;
+		padding-right: 15px;
+		padding-left: 15px;
+		top: 0;
+		right: 0;
+	}
+	.stylish-input-group .input-group-addon {
+		border-radius: 0;
+	}
+	.stylish-input-group .form-control {
+		border-radius: 0;
 	}
 }
 
