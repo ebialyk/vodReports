@@ -5,6 +5,10 @@
 	padding: 0;
 }
 
+ol, ul {
+	padding-left: 25px;
+}
+
 .navbar-brand {
 	height: 60px;
 }
@@ -18,24 +22,27 @@
 .columnWrapper:hover  .row6 {
 	border-bottom-color: #52b5e0;
 }
+
 .editorPick .itemCell {
 	border-top-color: transparent;
 	border-left-color: transparent;
 	border-right-color: transparent;
-	
 }
+
 .editorPick  .row6 {
 	border-bottom-color: #e4d38d;
 }
+
 .editorPick:hover .itemCell {
 	border-top-color: #e4d38d;
 	border-left-color: #e4d38d;
 	border-right-color: #e4d38d;
-	
 }
+
 .editorPick:hover  .row6 {
 	border-bottom-color: transparent;
 }
+
 .columnWrapper {
 	padding-left: 0;
 	padding-right: 0;
@@ -61,6 +68,10 @@
 
 .bestValue .row5 {
 	border-bottom: none;
+}
+
+.row1, .row2, row3 {
+	cursor: pointer;
 }
 
 .bestValue .row5:after {
@@ -120,12 +131,16 @@
 .editorPick {
 	border: 3px solid #e4d38d;
 }
+
 .editorPick div.row1 {
 	height: 219px;
-} 
+	padding-top: 7px;
+}
+
 .editorPick div.row6 {
 	height: 177px;
-} 
+}
+
 .row0 {
 	height: 22px;
 }
@@ -146,15 +161,21 @@
 	color: #4c4c4c;
 }
 
-.row1 a {
-	font-size: 13px;
+.row1 a span {
+	font-size: 15px;
 	font-weight: bold;
 	text-decoration: underline;
+	color: #3A589D;
+	line-height: 12px;
+}
+
+.row1 .imgWrapper {
+	height: 125px;
 }
 
 .row1 img {
-	width: 110px;
-	height: 125px;;
+	max-width: 110px;
+	max-height: 125px;
 }
 
 .row2, .row3 {
@@ -224,6 +245,10 @@
 	margin-bottom: 20px;
 }
 
+.bestDealBtn img {
+	width: 100%;
+}
+
 .bestDealBtn:hover {
 	opacity: 0.7;
 }
@@ -251,12 +276,15 @@
 	padding-top: 10px;
 	line-height: 1;
 }
-.descriptions > .row0 {
+
+.descriptions>.row0 {
 	border: none;
 }
+
 .descriptions>div:last-child {
 	border: 1px solid #d8d7d9;
 }
+
 .descriptions .subtitle {
 	font-size: 11px;
 	color: #52b5e0;
@@ -264,18 +292,19 @@
 
 /*photo slider*/
 .hide-bullets {
-    list-style:none;
-    margin-left: -40px;
-    margin-top:20px;
+	list-style: none;
+	margin-left: -40px;
+	margin-top: 20px;
 }
 
 .thumbnail {
-    padding: 0;
+	padding: 0;
 }
 
 .carousel-inner>.item>img, .carousel-inner>.item>a>img {
-    width: 100%;
+	width: 100%;
 }
+
 .columnsContainer {
 	margin-bottom: 60px;
 }
@@ -288,11 +317,152 @@
 	line-height: 38px;
 	font-size: 15px;
 	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
+
+.note .noteTitle {
+	height: 32px;
+}
+
+.note .title {
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.note .subtitle {
+	font-size: 13px;
+}
+
+.note .stars {
+	height: 100%;
+	display: table;
+	width: 60px;
+}
+
+.note .star {
+	display: table-cell;
+	background-image: url(../images/stars.png);
+	background-repeat: no-repeat;
+}
+
+.note .fullStar {
+	background-position: -1px bottom;
+}
+
+.note .halfStar {
+	background-position: -15px bottom;
+}
+
+.note .emptyStar {
+	background-position: -30px bottom;
+}
+
+.note .bodyNote {
+	font-size: 13px;
+	text-align: justify;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.note .review .title {
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.note .review {
+	padding-left: 50px;
+}
+
+.note .review>div {
+	padding: 0;
+}
+
+.note .review i {
+	color: gray;
+	font-size: 18px;
+	padding-right: 7px;
+}
+
+.note .review ul {
+	list-style: none;
+	padding: 5px 0 0 0;
+	border-bottom: 1px solid #d8d7d9;
+}
+
+.note .review ul li {
+	border-top: 1px solid #d8d7d9;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.note .review ul li span {
+	padding-left: 20px;
+	font-size: 13px;
+}
+
 .bestValueNote .header {
 	background-color: #52b5e0;
-	
 }
+
+.bestValueNote .header:after {
+	content: "Best Value";
+}
+
 .editorPickNote .header {
 	background-color: #89898B;
+}
+
+.editorPickNote .header:after {
+	content: "Editor Pick";
+}
+
+.noteWrapper {
+	display: table;
+}
+
+.noteWrapper>div {
+	display: table-cell;
+}
+
+/*fix height gallery*/
+.carousel-inner .active, .carousel-inner .next.left, .carousel-inner .prev.right
+	{
+	height: 100%;
+}
+
+.carousel-inner .item img {
+	max-width: 100%;
+	width: auto;
+	height: 100%;
+	margin: auto;
+}
+
+.thumbnail img {
+	max-height: 100%;
+}
+
+.bestOffer {
+	height: 100px;
+	border-top: 5px solid gray;
+	border-bottom: 5px solid gray;
+}
+
+
+.bestOffer .title:after {
+	font-size: 13px;
+}
+.editorPickNote .bestOffer .title:after {
+	content: "Editor Pick - Best Price";
+}
+.bestValueNote .bestOffer .title:after {
+	content: "Best Value";
+}
+.bestOffer .prodBtn {
+	
+}
+.bestOffer .vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }
