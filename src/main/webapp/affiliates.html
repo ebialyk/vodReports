@@ -1,0 +1,42 @@
+
+
+<div ng-controller="affiliatesController">
+
+	<div class="alert alert-danger" ng-show="message">{{message}}</div>
+	<div>
+		<button class="btn btn-link" onClick="$('#exportTable').tableExport({type:'excel',escape:'false'});">
+			<span class="glyphicon glyphicon-share"></span> Export to Excel
+		</button>
+		<br />
+		<div id="exportable">
+			<table width="100%" id="exportTable" class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Affiliate Id</th>
+						<th>Affiliate Name</th>
+						<th>Capture</th>
+						<th>Price</th>
+						<th>Clicks</th>
+						<th>PostBack</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="aff in affiliates">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div></div>
+</div>
+
+
+

@@ -2,7 +2,6 @@ apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'war'
 
-
 repositories {
 	mavenCentral()
 	//mavenCentral name:'apache',		artifactUrls: ['http://people.apache.org/repo/m2-ibiblio-rsync-repository/']
@@ -63,22 +62,18 @@ dependencies{
 	compile "taglibs:standard:1.1.2"
 	compile "joda-time:joda-time:2.3"
 	compile "javax.mail:mail:1.4.7"
-	compile 'com.amazonaws:aws-java-sdk:1.9.13'
+	compile 'com.amazonaws:aws-java-sdk:1.11.35'
 	compile 'com.google.api-client:google-api-client:1.19.1'
 	compile 'com.google.apis:google-api-services-adexchangeseller:v1-rev204-1.21.0'
 	compile 'com.google.http-client:google-http-client-jackson2:1.17.0-rc'
 	compile 'com.google.oauth-client:google-oauth-client-jetty:1.13.1-beta'
 	compile 'org.jsoup:jsoup:1.8.3'
 	compile 'com.googlecode.json-simple:json-simple:1.1.1'
-	compile group: 'com.maxmind.geoip2', name: 'geoip2', version: '2.7.0'
 	compile group: 'com.google.code.gson', name: 'gson', version: '1.7.2'
-	// https://mvnrepository.com/artifact/com.hazelcast/hazelcast-all
 	compile group: 'com.hazelcast', name: 'hazelcast-all', version: '2.4'
 	compile group: 'org.antlr', name: 'stringtemplate', version: '4.0'
+
+	
+	
 	
 }
-
-
-
-
-

@@ -1,0 +1,92 @@
+
+
+<div ng-controller="reportController">
+
+	<div class="alert alert-danger" ng-show="message">{{message}}</div>
+	<div class="dropdown form-group">
+		<label>Start Date</label> <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target="#" href="#">
+			<div class="input-group date">
+				<input type="text" class="form-control" data-ng-model="dateRangeStart"> <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			</div>
+		</a>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			<datetimepicker data-ng-model="dateRangeStart" data-datetimepicker-config="{ dropdownSelector: '#dropdownStart', renderOn: 'end-date-changed' }" data-on-set-time="startDateOnSetTime()"
+				data-before-render="startDateBeforeRender($dates)"></datetimepicker>
+		</ul>
+	</div>
+
+	<div class="dropdown form-group">
+		<label>End Date</label> <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target="#" href="#">
+			<div class="input-group date">
+				<input type="text" class="form-control" data-ng-model="dateRangeEnd"> <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			</div>
+		</a>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			<datetimepicker data-ng-model="dateRangeEnd" data-datetimepicker-config="{ dropdownSelector: '#dropdownEnd', renderOn: 'start-date-changed' }" data-on-set-time="endDateOnSetTime()"
+				data-before-render="endDateBeforeRender($view, $dates, $leftDate, $upDate, $rightDate)"></datetimepicker>
+		</ul>
+	</div>
+
+
+
+	<div>
+		<div>
+			<label for="fdt">Start date: (yyyy-mm-dd)</label> <input id="date-birth" type="text" ng-model="fdt "> <label for="tdt">End date:</label> <input id="tdt" type="text" ng-model="tdt ">
+			<label for="selectedAffiliate">Affiliate:</label> <select ng-model="selectedAffiliate" ng-options="aff as aff.affiliateName for aff in affiliates">
+			</select>
+
+		</div>
+		<button class="btn" ng-click="createReport(fdt,tdt,selectedAffiliate.affiliateId)">Search</button>
+		<button class="btn btn-link" onClick="$('#exportTable').tableExport({type:'excel',escape:'false'});">
+			<span class="glyphicon glyphicon-share"></span> Export to Excel
+		</button>
+		<button ng-click="exportData('#exportTable')">Export</button>
+		<br />
+		<div id="exportable">
+			<table width="100%" id="exportTable" class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Affiliate Id</th>
+						<th>Affiliate Name</th>
+						<th>Country</th>
+						<th>Design</th>
+						<th>Clicks</th>
+						<th>Leads</th>
+						<th>Leads Rate (%)</th>
+						<th>Credit Card Click</th>
+						<th>Credit Card Approved</th>
+						<th>Credit Card Approved Rate (%)</th>
+						<th>Credit Card Declined</th>
+						<th>PostBacks</th>
+						<th>Full Billing 5 Days</th>
+						<th>Sale Rate (%)</th>
+						<th>Survival Rate (%)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in items">
+						<td>{{item.affiliateId}}</td>
+						<td>{{item.affiliateName}}</td>
+						<td>{{item.country}}</td>
+						<td>{{item.landingPageDesign}}</td>
+						<td>{{item.clicks}}</td>
+						<td>{{item.leads}}</td>
+						<td>{{item.leadsRate | number:2 }}%</td>
+						<td>{{item.creditcardClick}}</td>
+						<td ng-class="{'success': item.creditcardApproved != '0'}">{{item.creditcardApproved}}</td>
+						<td>{{item.creditcardApprovedRate | number:2 }}%</td>
+						<td>{{item.creditcardDeclined}}</td>
+						<td ng-class="{'success': item.creditcardApproved > 0}">{{item.postBacks}}</td>
+						<td ng-class="{'success': item.creditcardApproved > 0}">{{item.fullBilling_5Days}}</td>
+						<td>{{item.saleRate | number:2 }}%</td>
+						<td>{{item.survivalRate | number:2 }}%</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div></div>
+</div>
+
+
+

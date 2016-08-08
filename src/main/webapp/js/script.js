@@ -1,393 +1,317 @@
-var app = angular.module('TenBestApp', []);
+var app = angular
+		.module('adminVOD', [ 'ngResource', 'ngCookies', 'ui.bootstrap',
+				'ui.router', 'ngAnimate', 'ngSanitize', 'ngInputDate' ]);
+app.config(function($stateProvider) {
+	$stateProvider.state("dailyReport", {
+		url : "/dailyReport",
+		templateUrl : "dailyReport.html"
+	}).state("affiliates", {
+		url : "/affiliates",
+		templateUrl : "affiliates.html"
+	}).state("clicksReport", {
+		url : "/clicksReport",
+		templateUrl : "login.html"
+	})
 
-app.controller(
-				'template1Controller',
+});
+
+app.controller("tabsController", function($scope, $state) {
+	$scope.tabs = [ {
+		title : "Daily Report",
+		action : "dailyReport",
+		icon : "icon-tab1",
+		active : true
+	}, {
+		title : "Affiliates",
+		action : "affiliates",
+		icon : "icon-tab2",
+		active : false
+	}, {
+		title : "Clicks Report",
+		action : "clicksReport",
+		icon : "icon-tab3",
+		active : false
+	} ];
+
+	var activeTab;
+	for (var i = 0; i < $scope.tabs.length; i++) {
+		if ($scope.tabs[i].active) {
+			activeTab = $scope.tabs[i];
+			break;
+		}
+	}
+
+	if (activeTab) {
+		$state.go(activeTab.action);
+	}
+});
+
+app
+		.factory(
+				'Api',
+				[
+						'$http',
+						'$resource',
+						'$q',
+						function($http, $resource, $q) {
+							function apiError(data) {
+								var msg = 'Error accessing: ' + data.config.url
+										+ '\nServer said: ' + data.status + ' '
+										+ data.statusText;
+								$q.reject(data);
+								console.log(msg, data);
+								alert('Error:' + '' + msg);
+
+							}
+							return {
+								LoginService : $resource(
+										'rest/checkUser',
+										{},
+										{
+											post : {
+												method : 'POST',
+												headers : {
+													'Content-Type' : 'application/x-www-form-urlencoded'
+												},
+												interceptor : {
+													responseError : function(
+															data) {
+														apiError(data);
+													}
+												},
+												isArray : false
+											},
+										}),
+								DailyReportService : $resource(
+										'rest/dailyReport',
+										{},
+										{
+											post : {
+												method : 'POST',
+												headers : {
+													'Content-Type' : 'application/x-www-form-urlencoded'
+												},
+												interceptor : {
+													responseError : function(
+															data) {
+														apiError(data);
+													}
+												},
+												isArray : true
+											},
+										}),
+								AffiliateService : $resource(
+										'rest/tables/affiliates', {}, {
+											get : {
+												method : 'GET',
+												interceptor : {
+													responseError : function(
+															data) {
+														apiError(data);
+													}
+												},
+												isArray : true
+											},
+										})
+							}
+						} ]);
+
+app
+		.controller(
+				'mainController',
 				[
 						'$scope',
 						'$location',
 						'$window',
-						function($scope, $location, $window) {
-							$scope.items = [
-									{
-										"editorPick" : true,
-										"bestValue" : false,
-										"title" : "Mamas & Papas",
-										"subtitle" : "Sola",
-										"img" : "images/temp/baby1-1.jpg",
-										"weight" : 4.5,
-										"weight_unit" : "Pounds",
-										"size" : "90x40x30",
-										"size_unit" : "Inches",
-										"stars" : 3.5,
-										"the_good" : [ "Lightweight",
-												"Durable", "Spacious",
-												"3 parts for all stages of growth" ],
-										"the_bad" : [ "Lightweight", "Durable",
-												"Spacious", "Rubber wheels", ],
-										"best_deal" : {
-											"name" : "amazon",
-											"price" : "$1020",
-											"lnk" : "https://google.com",
-											"img" : "images/amazonlogo.png",
-											"bigImg" : "images/amazon-biglogo.png"
-
-										},
-										"deals" : [ {
-											"name" : "ebay",
-											"price" : "$1029",
-											"lnk" : null,
-											"img" : ""
-										}, {
-											"name" : "xndoo",
-											"price" : "$1035",
-											"lnk" : null,
-											"img" : ""
-										}, {
-											"name" : "zappos",
-											"price" : "$1035",
-											"lnk" : null,
-											"img" : ""
-										} ],
-										"pictures" : [
-												"images/temp/baby1-1.jpg",
-												"images/temp/baby1-2.jpg",
-												"images/temp/baby1-3.jpg",
-												"images/temp/baby1-4.jpg" ],
-										"noteBody" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-												+ "Fusce fermentum mauris vel nisl faucibus, posuere consectetur sem "
-												+ "bibendum. Nulla eget enim consectetur, sollicitudin massa vitae, auctor "
-												+ "lorem. Nulla tincidunt porta vulputate. Etiam sit amet justo "
-												+ "pellentesque, semper mi id, bibendum ex. "
-												+ "Praesent ut gravida nisl, in bibendum magna. "
-												+ "Sed viverra ac dolor vitae molestie. Nullam fermentum, "
-												+ "libero eu tristique consectetur, libero ex consequat erat, "
-												+ "vitae dignissim felis justo vel metus. Maecenas maximus mollis tempus. "
-												+ "Donec tempor auctor tempus. Duis aliquam pulvinar felis ut facilisis. "
-												+ "Mauris faucibus laoreet velit et feugiat.\nSuspendisse eget ipsum "
-												+ "convallis, vehicula urna vitae, dapibus justo. Integer eget dui ac nisl "
-												+ "eleifend sollicitudin a eu eros. Phasellus mauris erat, gravida nec mi "
-												+ "ac, posuere faucibus urna. Vestibulum ante ipsum primis in faucibus "
-												+ "orci luctus et ultrices posuere cubilia Curae; Sed sed dolor "
-												+ "sollicitudin, dignissim orci quis, auctor eros. Quisque id egestas "
-												+ "lacus. Donec non erat sodales, fringilla libero ut, aliquam ex. "
-												+ "Maecenas a sollicitudin enim, sed imperdiet leo. "
-									},
-
-									{
-										"editorPick" : false,
-										"bestValue" : false,
-										"title" : "Baby Jogger",
-										"subtitle" : "City mini",
-										"img" : "images/temp/baby2-1.jpg",
-										"weight" : 5.2,
-										"weight_unit" : "Pounds",
-										"size" : "80x42x35",
-										"size_unit" : "Inches",
-										"stars" : 4,
-										"the_good" : [ "Durable", "Spacious",
-												"Rubber wheels" ],
-										"the_bad" : [ "Durable", "Spacious",
-												"Rubber wheels" ],
-										"best_deal" : {
-											"name" : "amazon",
-											"price" : "$1016",
-											"lnk" : "https://google.com",
-											"img" : "images/amazonlogo.png",
-											"bigImg" : "images/amazon-biglogo.png"
-
-										},
-										"deals" : [ {
-											"name" : "ebay",
-											"price" : "$1029",
-											"lnk" : null,
-											"img" : ""
-										}, {
-											"name" : "xndoo",
-											"price" : "$1035",
-											"lnk" : null,
-											"img" : ""
-										}, {
-											"name" : "zappos",
-											"price" : "$1035",
-											"lnk" : null,
-											"img" : ""
-										} ],
-										"pictures" : [
-												"images/temp/baby2-1.jpg",
-												"images/temp/baby2-2.jpg",
-												"images/temp/baby2-3.jpg",
-												"images/temp/baby2-4.jpg" ],
-										"noteBody" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-												+ "Fusce fermentum mauris vel nisl faucibus, posuere consectetur sem "
-												+ "bibendum. Nulla eget enim consectetur, sollicitudin massa vitae, auctor "
-												+ "lorem. Nulla tincidunt porta vulputate. Etiam sit amet justo "
-												+ "pellentesque, semper mi id, bibendum ex. "
-												+ "Praesent ut gravida nisl, in bibendum magna. "
-												+ "Sed viverra ac dolor vitae molestie. Nullam fermentum, "
-												+ "libero eu tristique consectetur, libero ex consequat erat, "
-												+ "vitae dignissim felis justo vel metus. Maecenas maximus mollis tempus. "
-												+ "Donec tempor auctor tempus. Duis aliquam pulvinar felis ut facilisis. "
-												+ "Mauris faucibus laoreet velit et feugiat.\nSuspendisse eget ipsum "
-												+ "convallis, vehicula urna vitae, dapibus justo. Integer eget dui ac nisl "
-												+ "eleifend sollicitudin a eu eros. Phasellus mauris erat, gravida nec mi "
-												+ "ac, posuere faucibus urna. Vestibulum ante ipsum primis in faucibus "
-												+ "orci luctus et ultrices posuere cubilia Curae; Sed sed dolor "
-												+ "sollicitudin, dignissim orci quis, auctor eros. Quisque id egestas "
-												+ "lacus. Donec non erat sodales, fringilla libero ut, aliquam ex. "
-												+ "Maecenas a sollicitudin enim, sed imperdiet leo. "
-									},
-									{
-										"editorPick" : false,
-										"bestValue" : false,
-										"title" : "Bugabo",
-										"subtitle" : "Bee",
-										"img" : "images/temp/baby3-1.jpg",
-										"weight" : 4.0,
-										"weight_unit" : "Pounds",
-										"size" : "80x42x35",
-										"size_unit" : "Inches",
-										"stars" : 3,
-										"the_good" : [ "Lightweight",
-												"Durable", "Spacious",
-												"Rubber wheels" ],
-										"the_bad" : [ "Lightweight", "Durable",
-												"Spacious", "Rubber wheels" ],
-										"best_deal" : {
-											"name" : "amazon",
-											"price" : "$1047",
-											"lnk" : "https://google.com",
-											"img" : "images/amazonlogo.png",
-											"bigImg" : "images/amazon-biglogo.png"
-
-										},
-										"deals" : [ {
-											"name" : "ebay",
-											"price" : "$1029",
-											"lnk" : null,
-											"img" : ""
-										}, {
-											"name" : "xndoo",
-											"price" : "$1035",
-											"lnk" : null,
-											"img" : ""
-										}, {
-											"name" : "zappos",
-											"price" : "$1035",
-											"lnk" : null,
-											"img" : ""
-										} ],
-										"pictures" : [
-												"images/temp/baby3-1.jpg",
-												"images/temp/baby3-2.jpg",
-												"images/temp/baby3-3.jpg",
-												"images/temp/baby3-4.jpg" ],
-										"noteBody" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-												+ "Fusce fermentum mauris vel nisl faucibus, posuere consectetur sem "
-												+ "bibendum. Nulla eget enim consectetur, sollicitudin massa vitae, auctor "
-												+ "lorem. Nulla tincidunt porta vulputate. Etiam sit amet justo "
-												+ "pellentesque, semper mi id, bibendum ex. "
-												+ "Praesent ut gravida nisl, in bibendum magna. "
-												+ "Sed viverra ac dolor vitae molestie. Nullam fermentum, "
-												+ "libero eu tristique consectetur, libero ex consequat erat, "
-												+ "vitae dignissim felis justo vel metus. Maecenas maximus mollis tempus. "
-												+ "Donec tempor auctor tempus. Duis aliquam pulvinar felis ut facilisis. "
-												+ "Mauris faucibus laoreet velit et feugiat.\nSuspendisse eget ipsum "
-												+ "convallis, vehicula urna vitae, dapibus justo. Integer eget dui ac nisl "
-												+ "eleifend sollicitudin a eu eros. Phasellus mauris erat, gravida nec mi "
-												+ "ac, posuere faucibus urna. Vestibulum ante ipsum primis in faucibus "
-												+ "orci luctus et ultrices posuere cubilia Curae; Sed sed dolor "
-												+ "sollicitudin, dignissim orci quis, auctor eros. "
-									},
-									{
-										"editorPick" : false,
-										"bestValue" : true,
-										"title" : "Brevi",
-										"subtitle" : "OVO",
-										"img" : "images/temp/baby4-1.jpg",
-										"weight" : 5.5,
-										"weight_unit" : "Pounds",
-										"size" : "75x52x28",
-										"size_unit" : "Inches",
-										"stars" : 3,
-										"the_good" : [ "Durable", "Spacious",
-												"Rubber wheels",
-												"3 parts for all stages of growth" ],
-										"the_bad" : [ "Lightweight",
-												"Spacious", "Rubber wheels",
-												"3 parts for all stages of growth" ],
-										"best_deal" : {
-											"name" : "amazon",
-											"price" : "$1017",
-											"lnk" : "https://google.com",
-											"img" : "images/amazonlogo.png",
-											"bigImg" : "images/amazon-biglogo.png"
-
-										},
-										"deals" : [ {
-											"name" : "ebay",
-											"price" : "$1029",
-											"lnk" : null,
-											"img" : ""
-										}, {
-											"name" : "xndoo",
-											"price" : "$1035",
-											"lnk" : null,
-											"img" : ""
-										}, {
-											"name" : "zappos",
-											"price" : "$1035",
-											"lnk" : null,
-											"img" : ""
-										} ],
-										"pictures" : [
-												"images/temp/baby4-1.jpg",
-												"images/temp/baby4-2.jpg",
-												"images/temp/baby4-3.jpg",
-												"images/temp/baby4-4.jpg" ],
-										"noteBody" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-												+ "Fusce fermentum mauris vel nisl faucibus, posuere consectetur sem "
-												+ "bibendum. Nulla eget enim consectetur, sollicitudin massa vitae, auctor "
-												+ "lorem. Nulla tincidunt porta vulputate. Etiam sit amet justo "
-												+ "pellentesque, semper mi id, bibendum ex. "
-												+ "Praesent ut gravida nisl, in bibendum magna. "
-												+ "Sed viverra ac dolor vitae molestie. Nullam fermentum, "
-												+ "libero eu tristique consectetur, libero ex consequat erat, "
-												+ "vitae dignissim felis justo vel metus. Maecenas maximus mollis tempus. "
-												+ "Donec tempor auctor tempus. Duis aliquam pulvinar felis ut facilisis. "
-												+ "Mauris faucibus laoreet velit et feugiat.\nSuspendisse eget ipsum "
-												+ "convallis, vehicula urna vitae, dapibus justo. Integer eget dui ac nisl "
-												+ "eleifend sollicitudin a eu eros. Phasellus mauris erat, gravida nec mi "
-												+ "ac, posuere faucibus urna. Vestibulum ante ipsum primis in faucibus "
-												+ "orci luctus et ultrices posuere cubilia Curae; Sed sed dolor "
-												+ "sollicitudin, dignissim orci quis, auctor eros. "
-									},
-									{
-										"editorPick" : false,
-										"bestValue" : false,
-										"title" : "Bugabo",
-										"subtitle" : "Camilian 3",
-										"img" : "images/temp/baby5-1.jpg",
-										"weight" : 6,
-										"weight_unit" : "Pounds",
-										"size" : "100x45x29",
-										"size_unit" : "Inches",
-										"stars" : 3.5,
-										"the_good" : [ "Lightweight",
-												"Durable", "Rubber wheels",
-												"3 parts for all stages of growth" ],
-										"the_bad" : [ "Lightweight", "Durable",
-												"Spacious", "Rubber wheels" ],
-										"best_deal" : {
-											"name" : "amazon",
-											"price" : "$1004",
-											"lnk" : "https://google.com",
-											"img" : "images/amazonlogo.png",
-											"bigImg" : "images/amazon-biglogo.png"
-										},
-										"deals" : [ {
-											"name" : "ebay",
-											"price" : "$1029",
-											"lnk" : null,
-											"img" : ""
-										}, {
-											"name" : "xndoo",
-											"price" : "$1035",
-											"lnk" : null,
-											"img" : ""
-										}, {
-											"name" : "zappos",
-											"price" : "$1035",
-											"lnk" : null,
-											"img" : ""
-										} ],
-										"pictures" : [
-												"images/temp/baby5-1.jpg",
-												"images/temp/baby5-2.jpg",
-												"images/temp/baby5-3.jpg",
-												"images/temp/baby5-4.jpg" ],
-										"noteBody" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-												+ "Fusce fermentum mauris vel nisl faucibus, posuere consectetur sem "
-												+ "bibendum. Nulla eget enim consectetur, sollicitudin massa vitae, auctor "
-												+ "lorem. Nulla tincidunt porta vulputate. Etiam sit amet justo "
-												+ "pellentesque, semper mi id, bibendum ex. "
-												+ "Praesent ut gravida nisl, in bibendum magna. "
-												+ "Sed viverra ac dolor vitae molestie. Nullam fermentum, "
-												+ "libero eu tristique consectetur, libero ex consequat erat, "
-												+ "vitae dignissim felis justo vel metus. Maecenas maximus mollis tempus. "
-												+ "Donec tempor auctor tempus. Duis aliquam pulvinar felis ut facilisis. "
-												+ "Mauris faucibus laoreet velit et feugiat.\nSuspendisse eget ipsum "
-												+ "convallis, vehicula urna vitae, dapibus justo. Integer eget dui ac nisl "
-												+ "eleifend sollicitudin a eu eros. Phasellus mauris erat, gravida nec mi "
-												+ "ac, posuere faucibus urna. Vestibulum ante ipsum primis in faucibus "
-												+ "orci luctus et ultrices posuere cubilia Curae; Sed sed dolor "
-												+ "sollicitudin, dignissim orci quis, auctor eros. Quisque id egestas "
-												+ "lacus. Donec non erat sodales, fringilla libero ut, aliquam ex. "
-												+ "Maecenas a sollicitudin enim, sed imperdiet leo. Curabitur eget "
-												+ "efficitur erat. Mauris in nunc est. Nam non maximus erat."
-									} ];
-
-							$scope.notes = [];
-							$scope.notes.push(($scope.items.filter(function(i) {
-								return (i.editorPick == true);
-							}))[0]);
-							$scope.notes.push(($scope.items.filter(function(i) {
-								return (i.bestValue == true);
-							}))[0]);
-
-							for (var i = 0; i < $scope.notes.length; i++) {
-								$scope.notes[i].fullstars = [];
-								$scope.notes[i].halfstars = [];
-								$scope.notes[i].emptystars = [];
-
-								var stars = $scope.notes[i].stars;
-								fulls = Math.floor(stars);
-								for (var j = 0; j < fulls; j++) {
-									$scope.notes[i].fullstars.push("*");
-								}
-								half = stars % 1;
-								if (half != 0) {
-									$scope.notes[i].halfstars.push("*");
-								}
-								empties = 5 - ($scope.notes[i].fullstars.length + $scope.notes[i].halfstars.length);
-								for (var k = 0; k < empties; k++) {
-									$scope.notes[i].emptystars.push("*");
-								}
-
-							}
-							$scope.showPic = function(picId, carouselId) {
-								try {
-									var id = /-(\d+)$/.exec(picId)[1];
-									console.log(picId, id);
-									jQuery('#' + carouselId).carousel(
-											parseInt(id));
-								} catch (e) {
-									console.log('Regex failed!', e);
+						'Api',
+						'$cookies',
+						function($scope, $location, $window, Api, $cookies) {
+							$scope.msg = "Hi";
+							$scope.authenticated = $cookies
+									.get('authenticated');
+							$scope.role = $cookies.get('role');
+							$scope.checkAutha = function() {
+								if ($scope.authenticated) {
+									$scope.currentTab = 'reports.html';
+								} else {
+									$scope.currentTab = 'login.html';
 								}
 							}
-							$scope.resizeMe = function() {
-								$('.noteContent, .carousel-inner')
-										.equalizeHeights();
+							$scope.login = function(u) {
+								$scope.message = "Please wait";
+								var data = 'usr=' + u.username + '&psw='
+										+ u.password;
+								Api.LoginService.post(data).$promise
+										.then(function(result) {
+											if (result.auth) {
+												$scope.message = "";
+
+												$scope.authenticated = true;
+
+												var expireDate = new Date();
+												expireDate.setDate(expireDate
+														.getDate() + 1);
+												$cookies
+														.put(
+																'authenticated',
+																true,
+																{
+																	'expires' : expireDate
+																});
+												$cookies
+														.put(
+																'role',
+																result.role,
+																{
+																	'expires' : expireDate
+																});
+												$scope.currentTab = 'reports.html';
+											} else {
+												$scope.message = "User not found, please check your data and try again";
+												$scope.authenticated = false;
+											}
+										})
+							}
+							$scope.logout = function() {
+								var expireDate = new Date();
+								expireDate.setDate(expireDate.getDate() + 1);
+								$cookies.remove('authenticated');
+								$cookies.remove('role');
+								$scope.currentTab = 'login.html';
+							}
+						} ]);
+
+app
+		.controller(
+				'reportController',
+				[
+						'$scope',
+						'$location',
+						'$window',
+						'Api',
+						'$cookies',
+						'$filter',
+						function($scope, $location, $window, Api, $cookies,
+								$filter) {
+							$scope.exportData = function() {
+								var blob = new Blob(
+										[ document.getElementById('exportable').innerHTML ],
+										{
+											type : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+										});
+								saveAs(blob, "Report.xls");
+							};
+
+							$scope.message = "";
+							$scope.items = [];
+							$scope.fdt = $filter('date')(new Date(),
+									'yyyy-MM-dd');
+							$scope.tdt = $scope.fdt;
+
+							$scope.tomorrow = new Date();
+							$scope.tomorrow
+									.setDate($scope.tomorrow.getDate() + 1);
+							$scope.tdt = $filter('date')($scope.tomorrow,
+									'yyyy-MM-dd');
+							$scope.affiliates = [];
+
+							$scope.createReport = function(f, t, a) {
+								var fromDt = $filter('date')(f, 'yyyy-MM-dd');
+								var toDt = $filter('date')(t, 'yyyy-MM-dd');
+								var data = 'strDt=' + fromDt + '&endDt=' + toDt
+										+ '&aff=' + a;
+								$scope.items = [];
+								$scope.message = "calculate, please wait";
+								Api.DailyReportService.post(data).$promise
+										.then(function(result) {
+											if (result) {
+												for ( var r in result) {
+													if (result[r].clicks != "0") {
+														result[r].leadsRate = result[r].leads
+																* 100
+																/ result[r].clicks;
+													}
+												}
+
+												$scope.items = result;
+												$scope.message = "";
+											} else {
+												$scope.message = "no records found";
+											}
+										})
+							}
+							$scope.getAffiliates = function() {
+								Api.AffiliateService.get().$promise
+										.then(function(result) {
+											$scope.affiliates = result;
+										})
 							}
 
-							$.fn.equalizeHeights = function() {
-								return this.height(Math.max.apply(this, $(this)
-										.map(function(i, e) {
-											return $(e).width()
-										}).get()))
+							$scope.getAffiliates();
+
+							$scope.endDateBeforeRender = endDateBeforeRender
+							$scope.endDateOnSetTime = endDateOnSetTime
+							$scope.startDateBeforeRender = startDateBeforeRender
+							$scope.startDateOnSetTime = startDateOnSetTime
+
+							function startDateOnSetTime() {
+								$scope.$broadcast('start-date-changed');
 							}
 
-							$scope.lastViewed = Date.now();
-							$scope.sendTo = function(href) {
-								$window.open(href, '_blank');
+							function endDateOnSetTime() {
+								$scope.$broadcast('end-date-changed');
+							}
+
+							function startDateBeforeRender($dates) {
+								if ($scope.dateRangeEnd) {
+									var activeDate = moment($scope.dateRangeEnd);
+
+									$dates
+											.filter(
+													function(date) {
+														return date
+																.localDateValue() >= activeDate
+																.valueOf()
+													}).forEach(function(date) {
+												date.selectable = false;
+											})
+								}
+							}
+
+							function endDateBeforeRender($view, $dates) {
+								if ($scope.dateRangeStart) {
+									var activeDate = moment(
+											$scope.dateRangeStart).subtract(1,
+											$view).add(1, 'minute');
+
+									$dates
+											.filter(
+													function(date) {
+														return date
+																.localDateValue() <= activeDate
+																.valueOf()
+													}).forEach(function(date) {
+												date.selectable = false;
+											})
+								}
 							}
 
 						} ]);
-app.directive('myRepeatDirective', function() {
-	return function(scope, element, attrs) {
-		
-		if (scope.$last) {
-			var maxH = $('.thumbnailWrapper').width();
-			$('.thumbnail').height(maxH);
-		}
-	};
+
+app.controller('affiliatesController', function($scope, $window) {
+	
 })
+app.controller('TabsDemoCtrl', function($scope, $window) {
+	$scope.tabs = [ {
+		title : 'Report',
+		content : '<div ng-include="currentTable"></div>'
+	}, {
+		title : 'Dynamic Title 2',
+		content : 'Dynamic content 2'
+	} ];
+
+	$scope.currentTable = "login.html";
+	$scope.model = {
+		name : 'Tabs'
+	};
+});
